@@ -49,6 +49,8 @@ void traverse(void)
          int index;
          sscanf(pJson[begin], "%u", &index);
       }
+      
+      /* No need to close collections, since we found the key we need */
    }
 }
 ```
