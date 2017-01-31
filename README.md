@@ -20,7 +20,7 @@ On Cortex-M4 the code is 1K and RAM is 12 bytes. In multi-threaded mode RAM coul
 
 ## Let me take a closer look!
 Below is a simple example on how to use the API. This is a non-automated way of accessing the data, it is position dependent, easy to make error, but works for small files.
-Using this API one can build its own parser that will define a way to describe primitive types, arrays and structure layouts to automate feeding application parameters directly from JSON text string.
+Using this API one can build its own parser that could define a way to describe primitive types, arrays and structure layouts to automate feeding application parameters directly from JSON text string.
 
 ```
 #include "jett.h"
