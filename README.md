@@ -1,7 +1,7 @@
 # jett
 JSON Embedded Tree Traversal
 
-## About
+## What is jett?
 **jett** is not just another JSON parser written in C. It is a JSON tree traversal tool specifically designed for embedded applications that require JSON parsing and have memory constraints.
 
 ## Why do I need a tree traversal instead of a parser?
