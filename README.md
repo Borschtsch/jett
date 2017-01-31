@@ -21,13 +21,13 @@ char jsonFile[] = "{ \"items\": [ { \"index\": 1}, { \"name\" : \"Glenn\", \"boo
 
 void traverse(void)
 {
+   /* This example omits the use of response code as it is not practical */
    jett_init(jsonFile, strlen(jsonFile));
 
    int begin;
    int end;
 
    /* Open the object first and get 'items' key */
-   /* Omit response code */
    jett_collectionBegin();
    jett_findKey(&begin, &end);
    if (strncmp(jsonFile[begin], "items", (end - begin) + 1) == 0)
@@ -40,7 +40,8 @@ void traverse(void)
       if (strncmp(jsonFile[begin], "index", (end - begin) + 1) == 0)
       {
          jett_getValue(&begin, &end);
-         
+
+         /* Scanning the value */
          int index;
          sscanf(pJson[begin], "%u", &index);
       }
