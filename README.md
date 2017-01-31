@@ -12,8 +12,12 @@ Any JSON parser requires memory allocation. They either need memory to store par
 ## Isn't it too many responsibilities for the application?
 Almost any embedded microcontroller application is predefined by design, so if your system expects a JSON file then it is already aware of any JSON key possible and values format. It is an application responsibility to know how to fill in strings, numericals, arrays or structures. **jett** is just removing a man in the middle.
 
+## How stable is the library?
+Well, it does not crash on a malformed JSON and it will not. But since the application has to deal with a raw data, it takes extra caution to make sure there is no data corruption or buffer overflow when parsing data from JSON. I didn't do many exceptions testing, but regardless of it, I encourage you to strictly rely on the application which defines the type and size of each value, array or structure fields that are used in the system.
+
 ## Example
-Below is a simple example on how to use the API. Using this API one can build its own parser that will define a way to describe primitive types, arrays and objects layouts to automate feeding application parameters directly from JSON file.
+Below is a simple example on how to use the API. Using this API one can build its own parser that will define a way to describe primitive types, arrays and structure layouts to automate feeding application parameters directly from JSON file.
+
 ```
 #include "jett.h"
 
