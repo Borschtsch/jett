@@ -10,4 +10,4 @@ Any JSON parser requires memory allocation. They either need memory to store par
 **jett** has such application responsibilities in mind and was developed to avoid intermediate data storage and allow the application to deal with JSON data directly in its own way. It does not need extra memory allocation, because its state is fully defined with an application logic and current cursor position.
 
 ## Isn't it too many responsibilities for the application?
-Almost any embedded microcontroller application is predefined by design, so if your system expects a JSON file then it is already aware of any JSON key possible and their values format. It is an application responsibility to know how to fill strings, numericals, arrays or structures. **jett** is just removing a man in the middle.
+Almost any embedded microcontroller application is predefined by design, so if your system expects a JSON file then it is already aware of any JSON key possible and values format. It is an application responsibility to know how to fill in strings, numericals, arrays or structures. **jett** is just removing a man in the middle.
