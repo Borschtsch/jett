@@ -12,8 +12,9 @@ When designed, the **jett** had such application responsibilities in mind and is
 ## Isn't it too many responsibilities for the application?
 Almost any embedded microcontroller application is predefined by design, so if your system expects a JSON file then it is already aware of any JSON key possible and value format. It is an application responsibility to know how to fill in strings, numericals, arrays or structures. **jett** is just removing a man in the middle.
 
-## How stable is the library?
-First of all, any feedback is warmly welcomed. Based on my experience the malformed JSON may feed the application with incorrect data. But regardless of that the application has to deal with a raw data and it takes extra caution to make sure there is no data corruption or buffer overflow when parsing data directly from JSON. I didn't do many exceptions testing and I encourage you to strictly rely on your application which defines the type and size of each value, array or structure fields that are used in the system.
+## Is the library error free?
+Any feedback is warmly welcomed :) Also there is no official release yet and I need to do more testing.
+Based on my experience the malformed JSON may feed the application with incorrect data. But regardless of that, the application has to deal with a raw data and it takes extra caution to make sure there is no data corruption or buffer overflow when parsing data directly from JSON. I didn't do many exceptions testing and I encourage you to strictly rely on your application which defines the type and size of each value, array or structure fields that are used in the system.
 
 ## Well... and how much memory it uses?
 On Cortex-M4 the code is 1K and RAM is 12 bytes. In multi-threaded mode RAM could be allocated on stack or per thread.
