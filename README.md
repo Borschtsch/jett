@@ -12,4 +12,4 @@ Take a look at [AWS IoT Embedded SDK](https://github.com/aws/aws-iot-device-sdk-
 **jett** has such application responsibilities in mind and was developed to avoid intermediate data storage and allow the application to deal with JSON data directly in its own way. It does not need any memory allocation, and its state is fully described with a current cursor position.
 
 ## Isn't it too many responsibilities for application?
-Almost any embedded microcontroller application is predefined by design, so if your system expects a JSON file then it is already aware of any JSON key possible and their values format. It is an application responsibility to know how to fill string, arrays or structures. **jett** is just removing a middleman.
+Almost any embedded microcontroller application is predefined by design, so if your system expects a JSON file then it is already aware of any JSON key possible and their values format. It is an application responsibility to know how to fill strings, numericals, arrays or structures. **jett** is just removing a middleman.
