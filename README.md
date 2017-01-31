@@ -2,7 +2,7 @@
 JSON Embedded Tree Traversal
 
 ## About
-**jett** is not just another JSON parser written in C. It is a JSON tree traversal tool designed for embedded applications with strict memory limitations, but sophisticated enough to require JSON parsing.
+**jett** is not just another JSON parser written in C. It is a JSON tree traversal tool specifically designed for embedded applications with strict memory limitations and sophisticated enough to require JSON parsing.
 
 ## Why do I need a tree traversal instead of a parser?
 Any JSON parser requires memory allocation. They either need memory to store parsed values or they need memory allocation to store metadata that describes the JSON file. And here is a simple rule - the bigger the JSON file, the higher parser's memory consumption. This is an overhead you do not want to pay for. And the most important, the application still needs to walk the parser data structure to fetch specific keys, arrays and objects or the metadata that describes them and then somehow process the data. 
