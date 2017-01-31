@@ -1,5 +1,5 @@
 ## What is jett?
-** jett ** stands for JSON Embedded Tree Traversal.
+**jett** stands for JSON Embedded Tree Traversal.
 
 ## You know, I've seen a lot...
 **jett** is not just another JSON parser written in C. It is a JSON tree traversal tool specifically designed for embedded applications that require JSON parsing alongs with strict memory constraints.
