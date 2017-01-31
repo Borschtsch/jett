@@ -58,7 +58,8 @@ void traverse(void)
          char someValue[10];
 
          /* This one is dangerous, what if JSON value is bigger then 'somevalue'? Application should always check the size. */
-         strncpy(&name[0], &pJson[begin], (end - begin) + 1); 
+         strncpy(&name[0], &pJson[begin], (end - begin) + 1);
+         someValue[(end - begin) + 1] = '\0';
       }
       
       /* Read the 'bool' value */
