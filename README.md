@@ -15,6 +15,9 @@ Almost any embedded microcontroller application is predefined by design, so if y
 ## How stable is the library?
 First of all, any feedback is warmly welcomed. Based on my experience the malformed JSON may feed the application with incorrect data. But regardless of that the application has to deal with a raw data and it takes extra caution to make sure there is no data corruption or buffer overflow when parsing data directly from JSON. I didn't do many exceptions testing and I encourage you to strictly rely on your application which defines the type and size of each value, array or structure fields that are used in the system.
 
+## Well... how much memory it uses?
+On Cortex-M4 code is 1K and RAM is 12 bytes. In multi-threaded mode RAM could be allocated on stack or per thread.
+
 ## Example
 Below is a simple example on how to use the API. Using this API one can build its own parser that will define a way to describe primitive types, arrays and structure layouts to automate feeding application parameters directly from JSON file.
 
