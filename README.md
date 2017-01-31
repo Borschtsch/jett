@@ -19,12 +19,13 @@ First of all, any feedback is warmly welcomed. Based on my experience the malfor
 On Cortex-M4 the code is 1K and RAM is 12 bytes. In multi-threaded mode RAM could be allocated on stack or per thread.
 
 ## Let me take a closer look!
-Below is a simple example on how to use the API. Using this API one can build its own parser that will define a way to describe primitive types, arrays and structure layouts to automate feeding application parameters directly from JSON text string.
+Below is a simple example on how to use the API. This is a non-automated way of accessing the data, it is position dependent, easy to make error, but works for small files.
+Using this API one can build its own parser that will define a way to describe primitive types, arrays and structure layouts to automate feeding application parameters directly from JSON text string.
 
 ```
 #include "jett.h"
 
-char jsonFile[] = "{ \"items\": [ { \"index\": 1}, { \"name\" : \"Glenn\", \"bool\" : true } ] }";
+char jsonFile[] = "{ \"players\": [ { \"name\" : \"Flinn\", \"integer\" : 1 }, { \"name\" : \"Tr0n\", \"integer\" : 2 } ] }";
 
 void traverse(void)
 {
@@ -37,23 +38,41 @@ void traverse(void)
    /* Open the object first and get 'items' key */
    jett_collectionBegin();
    jett_findKey(&begin, &end);
-   if (strncmp(jsonFile[begin], "items", (end - begin) + 1) == 0)
+   if (strncmp(jsonFile[begin], "players", (end - begin) + 1) == 0)
    {
-      /* Open array and object */
+      /* Open array */
       jett_collectionBegin();
+      /* Skip Flinn's object */
+      jett_collectionBegin(); 
+      jett_collectionEnd();
+
+      /* Open Tr0n's object */
       jett_collectionBegin();
-      /* Find 'index' key */
+      /* Find 'name' key */
       jett_findKey(&begin, &end);
-      if (strncmp(jsonFile[begin], "index", (end - begin) + 1) == 0)
+      if (strncmp(jsonFile[begin], "name", (end - begin) + 1) == 0)
       {
          jett_getValue(&begin, &end);
 
          /* Scanning the value */
-         int index;
-         sscanf(pJson[begin], "%u", &index);
+         char someValue[10];
+
+         /* This one is dangerous, what if JSON value is bigger then 'somevalue'? Application should always check the size. */
+         strncpy(&name[0], &pJson[begin], (end - begin) + 1); 
       }
       
-      /* No need to close collections, since we found the key we need */
+      /* Read the 'bool' value */
+      jett_findKey(&begin, &end);
+      if (strncmp(jsonFile[begin], "integer", (end - begin) + 1) == 0)
+      {
+         jett_getValue(&begin, &end);
+         
+         unsigned int someNumber;
+         /* sscanf is good here, it will check the string for number correctness */
+         sscanf(&pJson[begin], "%u", &someNumber);
+      }
+      
+      /* No need to close array, since we finished processing here */
    }
 }
 ```
