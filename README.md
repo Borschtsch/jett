@@ -68,7 +68,9 @@ void traverse(void)
          jett_getValue(&begin, &end);
          
          unsigned int someNumber;
-         /* sscanf is good here, it will check the string for number correctness */
+         /* sscanf is good here, it will check the string for number correctness, 
+          * but a check could be also made that number is not negative.
+          */
          sscanf(&pJson[begin], "%u", &someNumber);
       }
       
