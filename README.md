@@ -39,6 +39,7 @@ void traverse(void)
    /* Open the object first and get 'items' key */
    jett_collectionBegin();
    jett_findKey(&begin, &end);
+   /* A sanity check would be verifying that size of key and 'players' is the same before strncmp */
    if (strncmp(jsonFile[begin], "players", (end - begin) + 1) == 0)
    {
       /* Open array */
@@ -65,6 +66,7 @@ void traverse(void)
       
       /* Read the 'integer' value */
       jett_findKey(&begin, &end);
+      /* A sanity check would be verifying that size of key and 'integer' is the same before strncmp */
       if (strncmp(jsonFile[begin], "integer", (end - begin) + 1) == 0)
       {
          jett_getValue(&begin, &end);
