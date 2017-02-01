@@ -63,7 +63,7 @@ void traverse(void)
          someValue[(end - begin) + 1] = '\0';
       }
       
-      /* Read the 'bool' value */
+      /* Read the 'integer' value */
       jett_findKey(&begin, &end);
       if (strncmp(jsonFile[begin], "integer", (end - begin) + 1) == 0)
       {
