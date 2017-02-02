@@ -37,7 +37,7 @@ bool jett_findKey(
       if ((pJson[pos] == '{') || (pJson[pos]=='['))
       {
          /* Only increase the depth of search if key is not found */
-         if ((*pBegin != -1) && (*pEnd != -1))
+         if ((*pBegin == -1) && (*pEnd == -1))
          {
             depth++;
          }
@@ -52,7 +52,7 @@ bool jett_findKey(
       else if ((pJson[pos] == '}') || (pJson[pos] == ']'))
       {
          /* Only go to the upper level of search if key is not found */
-         if ((*pBegin != -1) && (*pEnd != -1))
+         if ((*pBegin == -1) && (*pEnd == -1))
          {
             depth--;
          }
