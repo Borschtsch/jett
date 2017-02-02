@@ -20,13 +20,12 @@ Based on my experience the malformed JSON may feed the application with incorrec
 On Cortex-M4 the code is 1K and RAM is 12 bytes. In multi-threaded mode RAM could be allocated on stack or per thread.
 
 ## How do I use it to walk through the JSON document?
-The software has to know the document structure. Think of it as a library API - you always link your software against specific version of library it can work with. So it could be a manual walk-through or it could be fully automated by defining what keys you expect to find and what their data types, a way to describe arrays and structure layouts.
+The software has to know the document structure. Think of it as a library API - you always link your software against specific version of library it can work with. Traversal could be a manual walk-through or it could be fully automated by defining what keys you expect to find and what their data types, and a way to describe arrays and structure layouts.
 The very first thing you should do - initialize the traversal with jett_init() and open the main object or array by issuing jett_collectionBegin().
 If root element is object, then request next key by jett_findKey(). If it is certainly an array of primitive values - use jett_getValue() to extract primitive value position in the JSON document.
-If the key you requested is recognized as an object key, then you should call jett_collectionBegin() again.
+If the key you requested is an object key, then you have to call jett_collectionBegin() again.
 
-In multithread mode the state of the traversal library is stored in the structure and this is up to developer to provide allocation for it. 
-When you are walking down the JSON tree using functions that automate parsing, you may pass pointer to this structure in the call.
+The library supports multithreaded mode when the state of the traversal library is stored in the tiny state tructure and this is up to developer to provide allocation for it. State structure contains the pointer to the JSON string, cursor position and string length - when you walk down the JSON tree using some automation functions pass a pointer to this structure may pass a pointer in the calls.
 
 ## Let me take a closer look!
 Below is a simple example on how to use the API. This is a non-automated way of accessing the data, it is position dependent, easy to make error, but works for small files.
