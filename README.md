@@ -20,7 +20,7 @@ Based on my experience the malformed JSON may feed the application with incorrec
 On Cortex-M4 the code is 1K and RAM is 12 bytes. In multi-threaded mode RAM could be allocated on stack or per thread.
 
 ## How do I use it to walk through the JSON document?
-The software have to know the document structure. Think of it as a library API and you always link the software against specific version of library it can work with. So it could be a manual walk-through or it could be fully automated by defining what keys you expect to find and what their data types, a way to describe arrays and structure layouts.
+The software has to know the document structure. Think of it as a library API - you always link your software against specific version of library it can work with. So it could be a manual walk-through or it could be fully automated by defining what keys you expect to find and what their data types, a way to describe arrays and structure layouts.
 The very first thing you should do - initialize the traversal with jett_init() and open the main object or array by issuing jett_collectionBegin().
 If root element is object, then request next key by jett_findKey(). If it is certainly an array of primitive values - use jett_getValue() to extract primitive value position in the JSON document.
 If the key you requested is recognized as an object key, then you should call jett_collectionBegin() again.
