@@ -54,7 +54,18 @@ bool jett_findKey(
          /* Only go to the upper level of search if key is not found */
          if ((*pBegin == -1) && (*pEnd == -1))
          {
-            depth--;
+            /* We cannot move up the level from the ground */
+            if (depth > 0)
+            {
+               depth--;
+            }
+            else
+            {
+               /* That means no key is found */
+               *pBegin = -1;
+               *pEnd = -1;
+               break;
+            }
          }
          /* Otherwise the JSON is somewhat broken and we cannot deal with it */
          else
@@ -217,11 +228,16 @@ bool jett_getValue(
       /* If we found an end of the value in object, array or found next element then stop traversing, regardless of success or failure */
       if ((pJson[pos] == '}') || (pJson[pos] == ']') || (pJson[pos] == ','))
       {
-         /* If we only found beginning of value and it is not a string, then our search is over */
+         /* If we found beginning of value and it is not a string, then our search is over */
          if (!bResult && !bStringFound && (*pBegin != -1))
          {
             *pEnd = pos - 1;
             bResult = true;
+         }
+         /* If we found a string but not the end of it, then continue until we find quotes */
+         else if (bStringFound && (*pEnd == -1))
+         {
+            continue;
          }
 
          if (pJson[pos] == ',')
@@ -248,7 +264,6 @@ bool jett_getValue(
             else
             {
                *pEnd = pos - 1;
-               pos++;
                bResult = true;
                /* We do not break here, keep looking for the end symbol */
             }
