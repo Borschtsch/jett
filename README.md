@@ -2,7 +2,8 @@
 **jett** stands for JSON Embedded Tree Traversal.
 
 ## You know, I've seen a lot...
-**jett** is not just another JSON parser written in C. It is a JSON tree traversal tool specifically designed for embedded applications that require JSON parsing on one side and have strict memory requirements on another.
+**jett** is not just another JSON parser written in C. It is a JSON tree traversal tool specifically designed for microcontroller systems that require JSON parsing on one side and have strict memory requirements on another.
+On Cortex-M4 the code is around 1K size and RAM is just 12 bytes.
 
 ## Why do I need a tree traversal instead of a parser?
 Any JSON parser requires memory allocation. They either need memory to store parsed values or they need memory allocation to store metadata that describes the JSON file. And here is a simple rule - the bigger the JSON file, the higher parser's memory consumption. This is an overhead you do not want to pay for. And the most important, the application still needs to walk the parser data structure to fetch specific keys, arrays and objects or the metadata that describes them and then somehow process this data. For the specific example you can take a look at [AWS IoT Embedded SDK](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/v2.1.1).
@@ -12,13 +13,6 @@ When designed, the **jett** had such application responsibilities in mind and is
 ## Isn't it too many responsibilities for the application?
 Almost any embedded microcontroller application is predefined by design, so if your system expects a JSON file then it is already aware of any JSON key and value format possible. It is an application responsibility to know how to fill in strings, numericals, arrays or structures. **jett** is just removing a man in the middle.
 
-## Is the library error free?
-Any feedback is warmly welcomed :) Also there is no official release yet and I need to do more testing.
-Based on my experience the malformed JSON may feed the application with incorrect data. But regardless of that, the application has to deal with a raw data and it takes extra caution to make sure there is no data corruption or buffer overflow when parsing data directly from JSON. I didn't do many exceptions testing and I encourage you to strictly rely on your application which defines the type and size of each value, array or structure fields that are used in the system.
-
-## Well... and how much memory it uses?
-On Cortex-M4 the code is 1K and RAM is 12 bytes. In multi-threaded mode RAM could be allocated on stack or per thread.
-
 ## How do I use it to walk through the JSON document?
 The software has to know the document structure. Think of it as a library API - you always link your software against specific version of library it can work with. Traversal could be a manual walk-through or it could be fully automated by defining what keys you expect to find and what their data types, and a way to describe arrays and structure layouts.
 The very first thing you should do - initialize the traversal with jett_init() and open the main object or array by issuing jett_collectionBegin().
@@ -26,6 +20,10 @@ If root element is object, then request next key by jett_findKey(). If it is cer
 If the key you requested is an object key, then you have to call jett_collectionBegin() again.
 
 The library supports multithreaded mode when the state of the traversal library is stored in the tiny state tructure and this is up to developer to provide allocation for it. State structure contains the pointer to the JSON string, cursor position and string length - when you walk down the JSON tree using some automation functions pass a pointer to this structure may pass a pointer in the calls.
+
+## Is the library error free?
+Any feedback is warmly welcomed :) Also there is no official release yet and I need to do more testing.
+Based on my experience the malformed JSON may feed the application with incorrect data. But regardless of that, the application has to deal with a raw data and it takes extra caution to make sure there is no data corruption or buffer overflow when parsing data directly from JSON. I didn't do many exceptions testing and I encourage you to strictly rely on your application which defines the type and size of each value, array or structure fields that are used in the system.
 
 ## Let me take a closer look!
 Below is a simple example on how to use the API. This is a non-automated way of accessing the data, it is position dependent, easy to make error, but works for small files.
