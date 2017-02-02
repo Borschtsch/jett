@@ -19,7 +19,7 @@ The very first thing you should do - initialize the traversal with jett_init() a
 If root element is object, then request next key by jett_findKey(). If it is certainly an array of primitive values - use jett_getValue() to extract primitive value position in the JSON document.
 If the key you requested is an object key, then you have to call jett_collectionBegin() again.
 
-The library supports multithreaded mode when the state of the traversal library is stored in the tiny state tructure and this is up to developer to provide allocation for it. State structure contains the pointer to the JSON string, cursor position and string length - when you walk down the JSON tree using some automation functions pass a pointer to this structure may pass a pointer in the calls.
+The library supports multithreaded mode when the state of the traversal library is stored in the tiny state tructure and this is up to developer to provide allocation for it. State structure contains the pointer to the JSON string, cursor position and string length - when you walk down the JSON tree using some automation functions just pass a pointer to this structure to bring the traverse state where its needed.
 
 ## Is the library error free?
 Any feedback is warmly welcomed :) Also there is no official release yet and I need to do more testing.
