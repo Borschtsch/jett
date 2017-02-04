@@ -15,17 +15,16 @@ Almost any embedded microcontroller application is predefined by design, so if y
 ## How do I use it to walk through the JSON document?
 The software has to know the document structure. Think of it as a library API - you always link your software against specific version of library it can work with. Traversal could be a manual walk-through or it could be fully automated by defining what keys you expect to find and what their data types, and a way to describe arrays and structure layouts.
 The very first thing you should do - initialize the traversal with jett_init() and open the main object or array by issuing jett_collectionBegin().
-If root element is object, then request next key by jett_findKey(). If it is certainly an array of primitive values - use jett_getValue() to extract primitive value position in the JSON document.
+If root element is an object then request next key by jett_findKey(). If it is certainly an array of primitive values - use jett_getValue() to extract primitive value position in the JSON document.
 If the key you requested is an object key, then you have to call jett_collectionBegin() again.
 
-The library supports multithreaded mode when the state of the traversal library is stored in the tiny state tructure and this is up to developer to provide allocation for it. State structure contains the pointer to the JSON string, cursor position and string length - when you walk down the JSON tree using some automation functions just pass a pointer to this structure to bring the traverse state where its needed.
+The library supports multithreaded mode when the state of the traversal library is stored in the tiny state structure and this is up to developer to provide allocation for it. State structure contains the pointer to the JSON string, cursor position and string length - when you walk down the JSON tree using some automation functions just pass a pointer to this structure to bring the traverse state where its needed.
 
 ## Is the library error free?
-Any feedback is warmly welcomed :) Also there is no official release yet and I need to do more testing.
-Based on my experience the malformed JSON may feed the application with incorrect data. But regardless of that, the application has to deal with a raw data and it takes extra caution to make sure there is no data corruption or buffer overflow when parsing data directly from JSON. I didn't do many exceptions testing and I encourage you to strictly rely on your application which defines the type and size of each value, array or structure fields that are used in the system.
+Any feedback is warmly welcomed :) Also there is no official release yet and I need to do more testing, primarily test the malformed document. Based on my experience the malformed JSON may feed the application with incorrect data. But regardless of that, the application has to deal with a raw data and it takes extra caution to make sure there is no data corruption or buffer overflow when parsing data directly from JSON. As I didn't do many exception tests and I encourage you to strictly rely on your application which defines the type and size of each value, array or structure fields that are used in the system.
 
 ## Let me take a closer look!
-Below is a simple example on how to use the API. This is a non-automated way of accessing the data, it is position dependent, easy to make error, but works for small files.
+Below is a simple example on how to use the API. This is a non-automated way of accessing the data, it is a key position dependent, easy to make error, so only works for small files.
 Using this API one can build its own parser that could define a way to describe primitive types, arrays and structure layouts to automate feeding application parameters directly from JSON text string.
 
 ```
