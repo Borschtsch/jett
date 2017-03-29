@@ -87,7 +87,7 @@ bool jett_findKey(
          /* If candidate key end is found, mark it and continue to look for key-value separator */
          else if ((pJson[pos] == '"') && (*pEnd == -1))
          {
-            *pEnd = pos - 1;
+            *pEnd = pos;
          }
          /* If key is found and separator is found, then we stop */
          else if ((*pBegin != -1) && (*pEnd != -1) && pJson[pos] == ':')
@@ -231,7 +231,7 @@ bool jett_getValue(
          /* If we found beginning of value and it is not a string, then our search is over */
          if (!bResult && !bStringFound && (*pBegin != -1))
          {
-            *pEnd = pos - 1;
+            *pEnd = pos;
             bResult = true;
          }
          /* If we found a string but not the end of it, then continue until we find quotes */
@@ -259,11 +259,19 @@ bool jett_getValue(
             {
                pos++;
                *pBegin = pos;
+
+               // Check for empty string
+               if (pJson[pos] == '"')
+               {
+                   *pEnd = pos;
+                   bResult = true;
+               }
+
                bStringFound = true;
             }
             else
             {
-               *pEnd = pos - 1;
+               *pEnd = pos;
                bResult = true;
                /* We do not break here, keep looking for the end symbol */
             }
@@ -276,7 +284,7 @@ bool jett_getValue(
             {
                if (*pBegin != -1)
                {
-                  *pEnd = pos - 1;
+                  *pEnd = pos;
                   bResult = true;
                }
             }

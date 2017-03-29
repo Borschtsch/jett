@@ -44,7 +44,7 @@ void traverse(void)
    jett_collectionBegin();
    jett_findKey(&begin, &end);
    /* A sanity check would be verifying that size of key and 'players' is the same before strncmp */
-   if (strncmp(jsonFile[begin], "players", (end - begin) + 1) == 0)
+   if (strncmp(jsonFile[begin], "players", end - begin) == 0)
    {
       /* Open array */
       jett_collectionBegin();
@@ -56,7 +56,7 @@ void traverse(void)
       jett_collectionBegin();
       /* Find 'name' key */
       jett_findKey(&begin, &end);
-      if (strncmp(jsonFile[begin], "name", (end - begin) + 1) == 0)
+      if (strncmp(jsonFile[begin], "name", end - begin) == 0)
       {
          jett_getValue(&begin, &end);
 
@@ -64,14 +64,14 @@ void traverse(void)
          char someValue[10];
 
          /* This one is dangerous, what if JSON value is bigger then 'somevalue'? Application should always check the size. */
-         strncpy(&name[0], &pJson[begin], (end - begin) + 1);
-         someValue[(end - begin) + 1] = '\0';
+         strncpy(&name[0], &pJson[begin], end - begin);
+         someValue[end - begin] = '\0';
       }
       
       /* Read the 'integer' value */
       jett_findKey(&begin, &end);
       /* A sanity check would be verifying that size of key and 'integer' is the same before strncmp */
-      if (strncmp(jsonFile[begin], "integer", (end - begin) + 1) == 0)
+      if (strncmp(jsonFile[begin], "integer", end - begin) == 0)
       {
          jett_getValue(&begin, &end);
          
