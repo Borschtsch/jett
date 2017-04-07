@@ -40,7 +40,7 @@ void traverse(void)
    int begin;
    int end;
 
-   /* Open the object first and get 'items' key */
+   /* Open the object first and get 'players' key */
    jett_collectionBegin();
    jett_findKey(&begin, &end);
    /* A sanity check would be verifying that size of key and 'players' is the same before strncmp */
