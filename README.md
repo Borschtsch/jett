@@ -2,7 +2,7 @@
 **jett** stands for JSON Embedded Tree Traversal.
 
 ## You know, I've seen a lot...
-**jett** is not just another JSON parser written in C. It is a JSON tree traversal tool specifically designed for microcontroller systems that require sigle-pass JSON parsing on one side and have strict memory requirements on another side. As an example, on for Cortex-M4 core the code produced is around 1K in size and RAM consumption is just 12 bytes.
+**jett** is not just another JSON parser written in C. It is a JSON tree traversal tool specifically designed for microcontroller systems that require sigle-pass JSON parsing on one side and have strict memory requirements on another side. As an example, on Cortex-M4 core the code produced is around 1K in size and RAM consumption is just 12 bytes.
 
 ## Why do I need a tree traversal instead of a normal parser?
 Any JSON parser requires memory allocation. They need memory to store either parsed values or metadata that describes the JSON file so you can access these values faster at any time. But do you need to access JSON document more than once during its lifetime? Even if this document is downloaded from Internet you transform it into application parameters and then it can be discarded.
