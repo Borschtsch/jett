@@ -6,8 +6,11 @@
 
 ## Why do I need a tree traversal instead of a normal parser?
 Any JSON parser requires memory allocation. They need memory to store either parsed values or metadata that describes the JSON file so you can access these values faster at any time. But do you need to access JSON document more than once during its lifetime? Even if this document is downloaded from Internet you transform it into application parameters and then it can be discarded.
+
 Another problem is the bigger the JSON file, the higher parser's memory consumption. This is an overhead you do not want to pay for. For the specific example you can take a look at [AWS IoT Embedded SDK](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/v2.1.1) which uses [Jsmn](https://github.com/zserge/jsmn) parser to read the information from device Shadow. Depending on the compiler the Jsmn parser will require from 7 to 16 bytes of RAM for each JSON key, object or object member, array or array element. If device Shadow has a hundred of elements then the minimum RAM requirement to use Jsmn starts from 700-1600 bytes while **jett** requires only 12 bytes regardless of the size of the Shadow.
+
 And the most important, the application still has to walk the parser data structure to fetch specific keys, arrays and objects or the metadata that describes them and then somehow process this data based on its own rules.
+
 When designed, the **jett** had such application responsibilities in mind, it avoids intermediate data storage and allows the application to deal with JSON data directly in its own way. It does not need extra memory allocation, because traversal is done in a single-pass and is fully defined with an application logic and current cursor position.
 
 ## Isn't it too many responsibilities for the application?
